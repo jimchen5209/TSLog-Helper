@@ -93,7 +93,6 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
 
 # Gatsby files
 .cache/
@@ -130,3 +129,4 @@ dist
 .vsls.json
 
 #project
+*.map
