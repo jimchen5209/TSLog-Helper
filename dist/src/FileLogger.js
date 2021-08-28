@@ -13,7 +13,7 @@ class FileLogger extends typescript_logging_1.AbstractCategoryLogger {
         this.logPath = logPath;
     }
     doLog(msg) {
-        const time = moment_1.default(msg.date).format('YYYY-MM-DD HH:mm:ss,SSS');
+        const time = (0, moment_1.default)(msg.date).format('YYYY-MM-DD HH:mm:ss,SSS');
         const categories = [];
         msg.categories.forEach((value) => {
             categories.push(value.name);

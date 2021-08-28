@@ -10,7 +10,7 @@ const typescript_logging_1 = require("typescript-logging");
 const FileLogger_1 = require("./FileLogger");
 if (!fs_1.default.existsSync('./logs'))
     fs_1.default.mkdirSync('./logs');
-const logPath = `./logs/${moment_1.default().format('YYYY-MM-DD-HH-mm-ss')}.log`;
+const logPath = `./logs/${(0, moment_1.default)().format('YYYY-MM-DD-HH-mm-ss')}.log`;
 const defaultConfig = new typescript_logging_1.CategoryConfiguration(typescript_logging_1.LogLevel.Info, typescript_logging_1.LoggerType.Custom, new typescript_logging_1.CategoryLogFormat(), (category, runtimeSettings) => new FileLogger_1.FileLogger(category, runtimeSettings, logPath));
 typescript_logging_1.CategoryServiceFactory.setDefaultConfiguration(defaultConfig);
 exports.catService = new typescript_logging_1.Category('Main');
