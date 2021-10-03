@@ -6,4 +6,6 @@ export declare class FileLogger {
     private logRaw;
     constructor(logger: Logger, baseFileName?: string | undefined, timeZone?: string | undefined, debug?: boolean, logRaw?: boolean);
     private logToFile;
+    setDebug(debug: boolean): void;
+    setLogRaw(logRaw: boolean): void;
 }

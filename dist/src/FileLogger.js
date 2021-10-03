@@ -47,6 +47,12 @@ class FileLogger {
                 (0, fs_1.appendFileSync)(rawDebugPath, `${JSON.stringify(logObject)}\n`);
         }
     }
+    setDebug(debug) {
+        this.debug = debug;
+    }
+    setLogRaw(logRaw) {
+        this.logRaw = logRaw;
+    }
 }
 exports.FileLogger = FileLogger;
 //# sourceMappingURL=FileLogger.js.map

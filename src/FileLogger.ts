@@ -49,4 +49,12 @@ export class FileLogger{
             if (this.logRaw) appendFileSync(rawDebugPath, `${JSON.stringify(logObject)}\n`);
         }
     }
+
+    public setDebug(debug: boolean) {
+        this.debug = debug;
+    }
+
+    public setLogRaw(logRaw: boolean) {
+        this.logRaw = logRaw;
+    }
 }
