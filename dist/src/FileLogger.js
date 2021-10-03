@@ -10,7 +10,7 @@ const timezone_1 = __importDefault(require("dayjs/plugin/timezone"));
 const customParseFormat_1 = __importDefault(require("dayjs/plugin/customParseFormat"));
 const fs_1 = require("fs");
 class FileLogger {
-    constructor(logger, baseFileName = undefined, timeZone = undefined, debug = false, logRaw = false) {
+    constructor(baseFileName = undefined, timeZone = undefined, debug = false, logRaw = false) {
         if (!(0, fs_1.existsSync)('./logs'))
             (0, fs_1.mkdirSync)('./logs');
         this.timeZone = timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -20,15 +20,6 @@ class FileLogger {
         this.baseFileName = baseFileName || dayjs_1.default.utc().tz(this.timeZone).format('YYYY-MM-DD-HH-mm-ss');
         this.debug = debug;
         this.logRaw = logRaw;
-        logger.attachTransport({
-            silly: this.logToFile,
-            debug: this.logToFile,
-            trace: this.logToFile,
-            info: this.logToFile,
-            warn: this.logToFile,
-            error: this.logToFile,
-            fatal: this.logToFile
-        });
     }
     logToFile(logObject) {
         const message = `${(0, dayjs_1.default)(logObject.date).utc().tz(this.timeZone).format('YYYY-MM-DD HH:mm:ss.SSS')}\t${logObject.logLevel}\t[${logObject.loggerName} ${logObject.filePath}:${logObject.lineNumber}]\t${logObject.argumentsArray}`;

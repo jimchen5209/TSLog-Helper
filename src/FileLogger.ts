@@ -1,4 +1,4 @@
-import { ILogObject, Logger } from 'tslog';
+import { ILogObject } from 'tslog';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
@@ -11,7 +11,7 @@ export class FileLogger{
     private timeZone: string;
     private logRaw: boolean;
 
-    constructor(logger: Logger, baseFileName: string | undefined = undefined, timeZone: string | undefined = undefined, debug = false, logRaw = false) {
+    constructor(baseFileName: string | undefined = undefined, timeZone: string | undefined = undefined, debug = false, logRaw = false) {
         if (!existsSync('./logs')) mkdirSync('./logs');
 
         this.timeZone = timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -23,19 +23,9 @@ export class FileLogger{
         this.baseFileName = baseFileName || dayjs.utc().tz(this.timeZone).format('YYYY-MM-DD-HH-mm-ss');
         this.debug = debug;
         this.logRaw = logRaw;
-
-        logger.attachTransport({
-            silly: this.logToFile,
-            debug: this.logToFile,
-            trace: this.logToFile,
-            info: this.logToFile,
-            warn: this.logToFile,
-            error: this.logToFile,
-            fatal: this.logToFile
-        });
     }
 
-    private logToFile(logObject: ILogObject) {
+    public logToFile(logObject: ILogObject) {
         const message = `${dayjs(logObject.date).utc().tz(this.timeZone).format('YYYY-MM-DD HH:mm:ss.SSS')}\t${logObject.logLevel}\t[${logObject.loggerName} ${logObject.filePath}:${logObject.lineNumber}]\t${logObject.argumentsArray}`;
         const normalPath = `./logs/${this.baseFileName}.log`;
         const rawNormalPath = `./logs/${this.baseFileName}-raw.log`;

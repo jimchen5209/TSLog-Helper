@@ -1,5 +1,11 @@
-import { ISettingsParam, Logger } from 'tslog';
+import { ILogObject, ISettingsParam, Logger } from 'tslog';
 import { FileLogger } from './FileLogger';
+
+let fileLogger: FileLogger;
+
+function logToFile(logObject: ILogObject) {
+    fileLogger.logToFile(logObject);
+}
 
 export interface ILogHelperConfig {
     name?: string,
@@ -10,17 +16,26 @@ export interface ILogHelperConfig {
 
 export class LogHelper {
     private _logger: Logger;
-    private fileLogger: FileLogger;
 
     constructor(config: ILogHelperConfig = {}) {
         const settings = config.settingsOverride || {};
-        settings.name = settings.name || config.name;
+        settings.name = settings.name || config.name || 'Main';
         settings.overwriteConsole = settings.overwriteConsole || true;
         settings.dateTimeTimezone = settings.dateTimeTimezone || Intl.DateTimeFormat().resolvedOptions().timeZone;
         settings.minLevel = settings.minLevel || (config.debug ? 'silly' : 'info');
 
         this._logger = new Logger(settings);
-        this.fileLogger = new FileLogger(this._logger, undefined, settings.dateTimeTimezone, config.debug, config.logRaw);
+        fileLogger = new FileLogger(undefined, settings.dateTimeTimezone, config.debug, config.logRaw);
+        this._logger.attachTransport({
+            silly: logToFile,
+            debug: logToFile,
+            trace: logToFile,
+            info: logToFile,
+            warn: logToFile,
+            error: logToFile,
+            fatal: logToFile
+        });
+
     }
 
     public get logger(): Logger {
@@ -29,10 +44,10 @@ export class LogHelper {
 
     public setDebug(debug: boolean) {
         this._logger.setSettings({ minLevel: debug ? 'silly' : 'info' });
-        this.fileLogger.setDebug(debug);
+        fileLogger.setDebug(debug);
     }
 
     public setLogRaw(logRaw: boolean) {
-        this.fileLogger.setLogRaw(logRaw);
+        fileLogger.setLogRaw(logRaw);
     }
 }

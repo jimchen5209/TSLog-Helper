@@ -7,7 +7,6 @@ export interface ILogHelperConfig {
 }
 export declare class LogHelper {
     private _logger;
-    private fileLogger;
     constructor(config?: ILogHelperConfig);
     get logger(): Logger;
     setDebug(debug: boolean): void;
