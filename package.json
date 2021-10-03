@@ -13,8 +13,8 @@
   },
   "license": "AGPL-3.0-only",
   "dependencies": {
-    "moment": "^2.29.1",
-    "typescript-logging": "^1.0.0"
+    "dayjs": "^1.10.7",
+    "tslog": "^3.2.2"
   },
   "devDependencies": {
     "@types/node": "^16.7.4",

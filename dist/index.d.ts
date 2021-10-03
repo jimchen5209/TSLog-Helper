@@ -1,2 +1,1 @@
-export { catService } from './src/Logger';
-export { Category } from 'typescript-logging';
+export { LogHelper, ILogHelperConfig } from './src/LogHelper';
