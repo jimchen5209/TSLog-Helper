@@ -8,7 +8,7 @@ npm install https://github.com/jimchen5209/TSLog-Helper.git#2.1.0
 ```
 or  
 ```
-yarn add https://github.com/jimchen5209/TSLog-Helper.git#2.1.0
+yarn add tslog-helper@jimchen5209/TSLog-Helper#2.1.0
 ```
 > If you want to use the latest repository version or currently development version, just remove `#2.1.0` tag or change it to `#dev`.  
 2. Init main logger and save it as variable  
