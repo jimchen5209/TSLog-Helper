@@ -1,11 +1,11 @@
 {
   "name": "tslog-helper",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "description": "",
   "author": "jimchen5209 <jimchen5209@gmail.com>",
   "repository": {
     "type": "git",
-    "repository": "https://github.com/jimchen5209/Logging-TS"
+    "repository": "https://github.com/jimchen5209/TSLog-Helper"
   },
   "main": "./dist/index.js",
   "scripts": {

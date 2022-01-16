@@ -1,23 +1,26 @@
-# Logging-TS
-A module that creates log file with console output for typescript 
+# TSLog-Helper
+A helper for [tslog](https://tslog.js.org/) that creates log file with console output for typescript  
 
 ## Basic usage
 
 1. Install package to your project using:  
 ```
-npm install https://github.com/jimchen5209/Logging-TS.git
+npm install https://github.com/jimchen5209/TSLog-Helper.git#2.1.0
 ```
 or  
 ```
-yarn add https://github.com/jimchen5209/Logging-TS.git
+yarn add https://github.com/jimchen5209/TSLog-Helper.git#2.1.0
 ```
+If you want to use the latest repository version or currently development version, just remove `#2.1.0` tag or change it to `#dev`.  
+
 2. Init main logger and save it as variable  
-Example:  
+
 ```typescript
-import { catService } from 'logging-ts';
+import { LogHelper } from 'tslog-helper';
 
 export class Core {
-    public readonly mainLogger = catService;
+    private readonly logHelper = new LogHelper();
+    public readonly mainLogger = this.logHelper.logger;
 
     // something else
 }
@@ -28,37 +31,103 @@ this.mainLogger.info('Starting...');
 ```
 Output looks like:  
 ```
-[2021-02-20 23:06:34,590][Main][Info] Starting...
+2022-01-16 15:06:19.199 INFO  [Main src/index.ts:8  undefined.constructor] Starting...
 ```
-Also it creates a file located in `logs/2021-02-20-23-06-34.log` with this message.
+Also it creates a file located in `logs/2022-01-16-15-06-19.log` with:  
+```
+2022-01-16 15:06:19.199	info	[Main src/index.ts:8]	Starting...
+```
 
+## Migrating from old logging-ts
+Due to module name change, you'll need to remove the old module and install the latest module.  
+
+1. Remove old logging-ts  
+```
+npm uninstall logging-ts
+```
+or  
+```
+yarn remove logging-ts 
+```
+2. Reinstall new module  
+```
+npm install https://github.com/jimchen5209/TSLog-Helper.git#2.1.0
+```
+or  
+```
+yarn add https://github.com/jimchen5209/TSLog-Helper.git#2.1.0
+```
+3. Change mainLogger code from this:  
+
+```typescript
+import { catService } from 'logging-ts';
+```
+```typescript
+public readonly mainLogger = catService;
+```
+to this:  
+
+```typescript
+import { LogHelper } from 'tslog-helper';
+```
+```typescript
+private readonly logHelper = new LogHelper();
+public readonly mainLogger = this.logHelper.logger;
+```
+4. If you're using child logger, then change the following code from this:  
+
+```typescript
+import { Category } from 'logging-ts';
+```
+```typescript
+private logger: Category;
+```
+```typescript
+this.logger = new Category('Test', core.mainLogger);
+```
+to this:
+
+```typescript
+import { Logger } from 'tslog-helper';
+```
+```typescript
+private logger: Logger;
+```
+```typescript
+this.logger = core.mainLogger.getChildLogger({ name: 'Test'});
+```
 ## Advanced Usage
-If you want a name other than 'Main' in one of your componets, simpily init a Category with new name and mainlogger.  
+If you want to use a child looger with a name other than 'Main' in one of your componets, simpily get child logger from mainlogger with a new name.  
+
 Example:  
 
 index.ts
 ```typescript
-import { catService } from 'logging-ts';
+import { LogHelper } from 'tslog-helper';
 import { Test } from './Components/Test'
 
 export class Core {
-    public readonly mainLogger = catService;
+    private readonly logHelper = new LogHelper();
+    public readonly mainLogger = this.logHelper.logger;
+
     constructor() {
         this.mainLogger.info('Starting...');
         new Test(this);
     }
 }
+
+new Core();
 ```
 Components/Test.ts
 ```typescript
-import { Category } from 'logging-ts';
+import { Logger } from 'tslog-helper';
 import { Core } from '..';
 
 export class Test {
-    private logger: Category;
+    private logger: Logger;
 
     constructor(core: Core) {
-        this.logger = new Category('Test', core.mainLogger);
+        this.logger = core.mainLogger.getChildLogger({ name: 'Test'});
         this.logger.info('Test message goes here.');
     }
 }
@@ -66,6 +135,8 @@ export class Test {
 
 Output:
 ```
-[2021-02-20 23:06:34,590][Main][Info] Starting...
-[2021-02-20 23:06:34,590][Test][Info] Test message goes here.
+2022-01-16 15:16:53.164 INFO  [Main src/index.ts:8  undefined.constructor] Starting... 
+2022-01-16 15:16:53.167 INFO  [Test src/Components/Test.ts:9  undefined.constructor] Test message goes here. 
 ```
+
+Further usage document refers to: https://tslog.js.org/
