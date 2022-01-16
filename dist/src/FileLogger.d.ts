@@ -1,6 +1,11 @@
-import { AbstractCategoryLogger, Category, CategoryLogMessage, RuntimeSettings } from 'typescript-logging';
-export declare class FileLogger extends AbstractCategoryLogger {
-    private logPath;
-    constructor(category: Category, runtimeSettings: RuntimeSettings, logPath: string);
-    protected doLog(msg: CategoryLogMessage): void;
+import { ILogObject } from 'tslog';
+export declare class FileLogger {
+    private baseFileName;
+    private debug;
+    private timeZone;
+    private logRaw;
+    constructor(baseFileName?: string | undefined, timeZone?: string | undefined, debug?: boolean, logRaw?: boolean);
+    logToFile(logObject: ILogObject): void;
+    setDebug(debug: boolean): void;
+    setLogRaw(logRaw: boolean): void;
 }

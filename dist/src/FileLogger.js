@@ -4,23 +4,45 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileLogger = void 0;
-const fs_1 = __importDefault(require("fs"));
-const moment_1 = __importDefault(require("moment"));
-const typescript_logging_1 = require("typescript-logging");
-class FileLogger extends typescript_logging_1.AbstractCategoryLogger {
-    constructor(category, runtimeSettings, logPath) {
-        super(category, runtimeSettings);
-        this.logPath = logPath;
+const dayjs_1 = __importDefault(require("dayjs"));
+const utc_1 = __importDefault(require("dayjs/plugin/utc"));
+const timezone_1 = __importDefault(require("dayjs/plugin/timezone"));
+const customParseFormat_1 = __importDefault(require("dayjs/plugin/customParseFormat"));
+const fs_1 = require("fs");
+class FileLogger {
+    constructor(baseFileName = undefined, timeZone = undefined, debug = false, logRaw = false) {
+        if (!(0, fs_1.existsSync)('./logs'))
+            (0, fs_1.mkdirSync)('./logs');
+        this.timeZone = timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone;
+        dayjs_1.default.extend(utc_1.default);
+        dayjs_1.default.extend(timezone_1.default);
+        dayjs_1.default.extend(customParseFormat_1.default);
+        this.baseFileName = baseFileName || dayjs_1.default.utc().tz(this.timeZone).format('YYYY-MM-DD-HH-mm-ss');
+        this.debug = debug;
+        this.logRaw = logRaw;
     }
-    doLog(msg) {
-        const time = (0, moment_1.default)(msg.date).format('YYYY-MM-DD HH:mm:ss,SSS');
-        const categories = [];
-        msg.categories.forEach((value) => {
-            categories.push(value.name);
-        });
-        const message = `[${time}][${categories.join('/')}][${typescript_logging_1.LogLevel[msg.level].toString()}] ${msg.messageAsString}`;
-        console.log(message);
-        fs_1.default.appendFileSync(this.logPath, `${message}\n`);
+    logToFile(logObject) {
+        const message = `${(0, dayjs_1.default)(logObject.date).utc().tz(this.timeZone).format('YYYY-MM-DD HH:mm:ss.SSS')}\t${logObject.logLevel}\t[${logObject.loggerName} ${logObject.filePath}:${logObject.lineNumber}]\t${logObject.argumentsArray}`;
+        const normalPath = `./logs/${this.baseFileName}.log`;
+        const rawNormalPath = `./logs/${this.baseFileName}-raw.log`;
+        const debugPath = `./logs/${this.baseFileName}-debug.log`;
+        const rawDebugPath = `./logs/${this.baseFileName}-debug-raw.log`;
+        if (logObject.logLevelId >= 3) {
+            (0, fs_1.appendFileSync)(normalPath, `${message}\n`);
+            if (this.logRaw)
+                (0, fs_1.appendFileSync)(rawNormalPath, `${JSON.stringify(logObject)}\n`);
+        }
+        else if (this.debug) {
+            (0, fs_1.appendFileSync)(debugPath, `${message}\n`);
+            if (this.logRaw)
+                (0, fs_1.appendFileSync)(rawDebugPath, `${JSON.stringify(logObject)}\n`);
+        }
+    }
+    setDebug(debug) {
+        this.debug = debug;
+    }
+    setLogRaw(logRaw) {
+        this.logRaw = logRaw;
     }
 }
 exports.FileLogger = FileLogger;
