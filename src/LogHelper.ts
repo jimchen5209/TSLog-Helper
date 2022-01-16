@@ -7,6 +7,10 @@ function logToFile(logObject: ILogObject) {
     fileLogger.logToFile(logObject);
 }
 
+
+/**
+ * Config for logging helper
+ */
 export interface ILogHelperConfig {
     name?: string,
     debug?: boolean,
@@ -17,6 +21,9 @@ export interface ILogHelperConfig {
 export class LogHelper {
     private _logger: Logger;
 
+    /**
+     * TSLog Help for jimchen5209's node project
+     */
     constructor(config: ILogHelperConfig = {}) {
         const settings = config.settingsOverride || {};
         settings.name = settings.name || config.name || 'Main';
@@ -42,11 +49,17 @@ export class LogHelper {
         return this._logger;
     }
 
+    /**
+     * Change logger debug level
+     */
     public setDebug(debug: boolean) {
         this._logger.setSettings({ minLevel: debug ? 'silly' : 'info' });
         fileLogger.setDebug(debug);
     }
 
+    /**
+     * Change whether logging raw json log into file
+     */
     public setLogRaw(logRaw: boolean) {
         fileLogger.setLogRaw(logRaw);
     }

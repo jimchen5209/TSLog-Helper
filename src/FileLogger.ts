@@ -11,6 +11,9 @@ export class FileLogger{
     private timeZone: string;
     private logRaw: boolean;
 
+    /**
+     * Helper for setting up the file logger
+     */
     constructor(baseFileName: string | undefined = undefined, timeZone: string | undefined = undefined, debug = false, logRaw = false) {
         if (!existsSync('./logs')) mkdirSync('./logs');
 
@@ -40,10 +43,16 @@ export class FileLogger{
         }
     }
 
+    /**
+     * Change whether logging debug, trace and silly log into file
+     */
     public setDebug(debug: boolean) {
         this.debug = debug;
     }
 
+    /**
+     * Change whether logging raw json log into file
+     */
     public setLogRaw(logRaw: boolean) {
         this.logRaw = logRaw;
     }
