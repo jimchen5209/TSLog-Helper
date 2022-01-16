@@ -2,7 +2,6 @@
 A helper for [tslog](https://tslog.js.org/) that creates log file with console output for typescript  
 
 ## Basic usage
-
 1. Install package to your project using:  
 ```
 npm install https://github.com/jimchen5209/TSLog-Helper.git#2.1.0
@@ -11,8 +10,7 @@ or
 ```
 yarn add https://github.com/jimchen5209/TSLog-Helper.git#2.1.0
 ```
-If you want to use the latest repository version or currently development version, just remove `#2.1.0` tag or change it to `#dev`.  
-
+> If you want to use the latest repository version or currently development version, just remove `#2.1.0` tag or change it to `#dev`.  
 2. Init main logger and save it as variable  
 
 ```typescript
@@ -30,9 +28,8 @@ export class Core {
 this.mainLogger.info('Starting...');
 ```
 Output looks like:  
-```
-2022-01-16 15:06:19.199 INFO  [Main src/index.ts:8  undefined.constructor] Starting...
-```
+![image](https://user-images.githubusercontent.com/10269287/149651338-ff5e371f-0fca-488b-9a04-c7f85eb465a4.png)  
+  
 Also it creates a file located in `logs/2022-01-16-15-06-19.log` with:  
 ```
 2022-01-16 15:06:19.199	info	[Main src/index.ts:8]	Starting...
@@ -40,7 +37,6 @@ Also it creates a file located in `logs/2022-01-16-15-06-19.log` with:
 
 ## Migrating from old logging-ts
 Due to module name change, you'll need to remove the old module and install the latest module.  
-
 1. Remove old logging-ts  
 ```
 npm uninstall logging-ts
@@ -133,10 +129,7 @@ export class Test {
 }
 ```
 
-Output:
-```
-2022-01-16 15:16:53.164 INFO  [Main src/index.ts:8  undefined.constructor] Starting... 
-2022-01-16 15:16:53.167 INFO  [Test src/Components/Test.ts:9  undefined.constructor] Test message goes here. 
-```
+Output:  
+![image](https://user-images.githubusercontent.com/10269287/149651412-65a1fcd9-5f40-4fcf-9a4d-e67b1c652f23.png)  
 
 Further usage document refers to: https://tslog.js.org/
