@@ -37,63 +37,10 @@ Also it creates a file located in `logs/2022-01-16-15-06-19.log` with:
 
 ## Migrating from old logging-ts
 Due to module name change, you'll need to remove the old module and install the latest module.  
-1. Remove old logging-ts  
-```
-npm uninstall logging-ts
-```
-or  
-```
-yarn remove logging-ts 
-```
-2. Reinstall new module  
-```
-npm install https://github.com/jimchen5209/TSLog-Helper.git#2.1.0
-```
-or  
-```
-yarn add https://github.com/jimchen5209/TSLog-Helper.git#2.1.0
-```
-3. Change mainLogger code from this:  
+For complete migrating guide, see the [v2.1.0 release section](https://github.com/jimchen5209/TSLog-Helper/releases/tag/2.1.0).
 
-```typescript
-import { catService } from 'logging-ts';
-```
-```typescript
-public readonly mainLogger = catService;
-```
-to this:  
-
-```typescript
-import { LogHelper } from 'tslog-helper';
-```
-```typescript
-private readonly logHelper = new LogHelper();
-public readonly mainLogger = this.logHelper.logger;
-```
-4. If you're using child logger, then change the following code from this:  
-
-```typescript
-import { Category } from 'logging-ts';
-```
-```typescript
-private logger: Category;
-```
-```typescript
-this.logger = new Category('Test', core.mainLogger);
-```
-to this:
-
-```typescript
-import { Logger } from 'tslog-helper';
-```
-```typescript
-private logger: Logger;
-```
-```typescript
-this.logger = core.mainLogger.getChildLogger({ name: 'Test'});
-```
 ## Advanced Usage
-If you want to use a child looger with a name other than 'Main' in one of your componets, simpily get child logger from mainlogger with a new name.  
+If you want to use a child logger with a name other than 'Main' in one of your componets, simpily get child logger from mainlogger with a new name.  
 
 Example:  
 
@@ -131,5 +78,13 @@ export class Test {
 
 Output:  
 ![image](https://user-images.githubusercontent.com/10269287/149651412-65a1fcd9-5f40-4fcf-9a4d-e67b1c652f23.png)  
+
+If you want to turn on debug logging and raw log (only to file) after `LogHelper()` initialized, add the following code:
+```typescript
+this.logHelper.setDebug(true);
+```
+```typescript
+this.logHelper.setLogRaw(true);
+```
 
 Further usage document refers to: https://tslog.js.org/
