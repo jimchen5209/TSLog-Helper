@@ -13,7 +13,7 @@
   },
   "license": "AGPL-3.0-only",
   "dependencies": {
-    "dayjs": "^1.10.8",
+    "dayjs": "^1.11.0",
     "tslog": "^3.2.2"
   },
   "devDependencies": {
