@@ -14,7 +14,7 @@
   "license": "AGPL-3.0-only",
   "dependencies": {
     "dayjs": "^1.10.8",
-    "tslog": "^3.2.2"
+    "tslog": "^4.8.2"
   },
   "devDependencies": {
     "@types/node": "^18.14.6",
