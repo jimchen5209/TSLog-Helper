@@ -1,16 +1,22 @@
 # TSLog-Helper
 A helper for [tslog](https://tslog.js.org/) that creates log file with console output for typescript  
 
+## Deprecation Notice
+As I am using pm2 for process management, which includes a built-in log management system, there is no longer a need to use this module for file logging.  
+Consequently, I won't be maintaining this module any longer.  
+Therefore, there are no plans to upgrade tslog to v4, as it would involve significant changes.  
+Please use [tslog](https://tslog.js.org/) directly instead.
+
 ## Basic usage
 1. Install package to your project using:  
 ```
-npm install https://github.com/jimchen5209/TSLog-Helper.git#2.1.0
+npm install https://github.com/jimchen5209/TSLog-Helper.git#2.3.0
 ```
 or  
 ```
 yarn add tslog-helper@jimchen5209/TSLog-Helper#2.1.0
 ```
-> If you want to use the latest repository version or currently development version, just remove `#2.1.0` tag or change it to `#dev`.  
+> If you want to use the latest repository version or currently development version, just remove `#2.3.0` tag or change it to `#dev`.  
 2. Init main logger and save it as variable  
 
 ```typescript
