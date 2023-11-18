@@ -1,6 +1,6 @@
 {
   "name": "tslog-helper",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "",
   "author": "jimchen5209 <jimchen5209@gmail.com>",
   "repository": {
@@ -13,15 +13,15 @@
   },
   "license": "AGPL-3.0-only",
   "dependencies": {
-    "dayjs": "^1.10.8",
-    "tslog": "^3.2.2"
+    "dayjs": "^1.11.10",
+    "tslog": "^3.3.4"
   },
   "devDependencies": {
-    "@types/node": "^18.14.6",
-    "@typescript-eslint/eslint-plugin": "^5.13.0",
-    "@typescript-eslint/parser": "^5.13.0",
-    "eslint": "^8.10.0",
-    "typescript": "^4.5.5"
+    "@types/node": "^20.9.1",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
+    "eslint": "^8.54.0",
+    "typescript": "^5.2.2"
   },
   "typings": "./dist/index.d.ts"
 }
