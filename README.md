@@ -10,13 +10,13 @@ Please use [tslog](https://tslog.js.org/) directly instead.
 ## Basic usage
 1. Install package to your project using:  
 ```
-npm install https://github.com/jimchen5209/TSLog-Helper.git#v2.3.0
+npm install https://github.com/jimchen5209/TSLog-Helper.git#v2.3.1
 ```
 or  
 ```
-yarn add tslog-helper@jimchen5209/TSLog-Helper#v2.3.0
+yarn add tslog-helper@jimchen5209/TSLog-Helper#v2.3.1
 ```
-> If you want to use the latest repository version or currently development version, just remove `#v2.3.0` tag or change it to `#dev`.  
+> If you want to use the latest repository version, just remove `#v2.3.1` tag
 2. Init main logger and save it as variable  
 
 ```typescript
