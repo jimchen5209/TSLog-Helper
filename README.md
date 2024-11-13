@@ -2,6 +2,10 @@
 A helper for [tslog](https://tslog.js.org/) that creates log file with console output for typescript  
 
 ## Deprecation Notice
+
+> [!NOTE]
+> **TL;DR** This project is no longer being maintained, Please use [tslog](https://tslog.js.org/) directly instead.
+
 As I am using pm2 for process management, which includes a built-in log management system, there is no longer a need to use this module for file logging.  
 Consequently, I won't be maintaining this module any longer.  
 Therefore, there are no plans to upgrade tslog to v4, as it would involve significant changes.  
